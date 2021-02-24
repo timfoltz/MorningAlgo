@@ -23,6 +23,9 @@ class DLList {
     // consider the edge case where you do not find the target
     prepend(target, node) {
         // start at the head
+        if (this.length == 0){
+            return "List is empty";
+        }
         var runner = this.head;
 
         // while we have a runner
@@ -31,14 +34,50 @@ class DLList {
             // return true if data === value
             if (runner.data === target) {
                 // 
+                if (runner.prev == null){
+                    this.addHead(node);
+                } 
                 runner.prev.next = node;
-                node.prev = runner.prev.prev;
+                node.prev = runner.prev;
                 runner.prev = node;
                 node.next = runner;
+                return "Node successfully added"
             }
             // otherwise advance the runner
             runner = runner.next;
         }
+        return "Target not in DLList";
+    }
+
+    append(target, node){
+        // start at the tail
+        if (this.length == 0){
+            return "List is empty";
+        }
+        var runner = this.tail;
+
+        // while we have a runner
+        while (runner) {
+
+            // return true if data === value
+            if (runner.data === target) {
+                // 
+                if (runner.next == null){
+                    this.addTail(node);
+                    this.length++;
+                    return "Node successfully added"
+                } 
+                runner.next.prev = node;
+                node.next = runner.next;
+                runner.next = node;
+                node.prev = runner;
+                this.length++;
+                return "Node successfully added"
+            }
+            // otherwise advance the runner
+            runner = runner.prev;
+        }
+        return "Target not in DLList";
     }
 
     // push to head
